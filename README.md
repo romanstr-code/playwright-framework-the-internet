@@ -1,1 +1,1 @@
-# Learn Playwright Test Framework by testing the website -  The Internet
+# Learn Playwright by building a Test Framework and testing the application -  The Internet
