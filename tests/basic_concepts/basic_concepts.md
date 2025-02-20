@@ -27,3 +27,18 @@ test('Browser, Context, Page Example', async ({ browser }) => {
     // Browser is automatically closed by Playwright after all tests are done in this file.
 });
 ```
+
+## Code Explanation
+
+<!-- 
+* async ({ browser }) => { ... } : We are now using the broser fixture.
+Playwright provides different fixtures to access browser-level, context-level,
+and page-level objects.
+* browser.browserType().name(): Shows the type of browser being used (e.g, "chronium"). 
+By default, Playwright runs tests on Chromium. You can configure it to run on
+Firefox and WebKit as well.
+* browser.NewContext(): Creates a new browser context.
+* context.newPage(): Creates a new page within the created context.
+* context.close(): Close the context. It's generally good practice to close contexts when you are done with them,
+altough Playwright often manages this automatically.
+ -->
