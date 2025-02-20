@@ -116,7 +116,7 @@ Explanation: Once you have located an element, you can perform actions on it. Co
 
 `setInputFiles('filepath'):`  Uploads files to an `<input type="file">` element.
 
-### Code Imprementation
+### Code Implementation
 
 ```javascript
 const { test, expect } = require('@playwright/test');
@@ -153,3 +153,55 @@ Explanation:
 `deleteButtonLocator.click():` Performs a click action on the "Delete" button.
 
 `expect(deleteButtonLocator).not.toBeVisible():`  Asserts that the "Delete" button is not visible on the page after clicking it.
+
+## Assertions - Verifying expected outcomes
+
+Explanation: We've already used expect for basic visibility and text assertions. Playwright's expect library (from expect-playwright) provides a rich set of matchers to verify various conditions. Some common assertions:
+
+`.toBeVisible():` Checks if an element is visible.
+
+`.toBeHidden():` Checks if an element is hidden.
+
+`.toHaveText('text'):` Checks if an element has the specified text content.
+
+`.toContainText('text'):` Checks if an element's text content contains the specified text.
+
+`.toHaveAttribute('attributeName', 'attributeValue'):` Checks if an element has a specific attribute with a value.
+
+`.toHaveValue('value'):` Checks the value of an input field or other form element.
+
+`.toHaveClass('className'):` Checks if an element has a specific CSS class.
+
+`.toHaveURL('url'):` Checks if the current page URL matches the expected URL.
+
+`.toHaveTitle('title'):` Checks if the page title matches the expected title.
+
+### Code_Implementation
+
+```javascript
+const { test, expect } = require('@playwright/test');
+
+test('Checkboxes Default State', async ({ page}) => {
+    await page.goto('https://the-internet.herokuapp.com/checkboxes');
+
+    const checkbox1 = page.locator("//form[@id='checkboxes']/input[1]"); // Get the first checkbox
+    // Checkinc if the checkbox is visible and exists
+    await expect(checkbox1).toBeVisible();
+
+    const checkbox2 = page.locator("//form[@id='checkboxes']/input[2]"); // Get the second checkbox
+
+    //Assertion: Checkbox 1 should NOT be checked initially
+    await expect(checkbox1).not.toBeChecked();
+
+    //Assertion: Checkbox 2 should be checked initially
+    await expect(checkbox2).toBeChecked();
+});
+```
+
+- Explanation:
+
+`page.locator('input[type="checkbox"]').nth(0):` Locates all checkboxes (input[type="checkbox"]) and uses .nth(0) to get the first one (index 0). .nth(1) gets the second one.
+
+`expect(checkbox1).not.toBeChecked():` Asserts that checkbox 1 is not checked.
+
+`expect(checkbox2).toBeChecked():` Asserts that checkbox 2 is checked.
