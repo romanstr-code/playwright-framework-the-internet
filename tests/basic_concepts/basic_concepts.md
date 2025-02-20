@@ -59,3 +59,97 @@ Explanation: Locators are the heart of Playwright. They are used to find specifi
 * **By Alt Text**: Locate images based on their alt attribute.
 * **Combining Locators**: Chain locators to be more specific.
 
+```Javascript
+const { test, expect } = require('@playwright/test');
+
+test('Verify Welcome Text using Text Locator', async ({ page }) => {
+  await page.goto('https://the-internet.herokuapp.com/');
+
+  // Locator by Text:  finds an element that *contains* the given text (case-insensitive)
+  const welcomeTextLocator = page.locator('text=Welcome to the-internet');
+
+  // Assertion: Check if the locator is visible (meaning the element exists and is displayed)
+  await expect(welcomeTextLocator).toBeVisible();
+});
+
+test('Verify Elemental Selenium Link using CSS Selector', async ({ page }) => {
+  await page.goto('https://the-internet.herokuapp.com/');
+
+  // Locator by CSS Selector:  using a class name '.heading'
+  const elementalSeleniumLinkLocator = page.locator('div#content > .heading'); // space means descendant
+
+  // Assertion: Check if the link is visible
+  await expect(elementalSeleniumLinkLocator).toBeVisible();
+
+  // You can also check the text content of the link
+  await expect(elementalSeleniumLinkLocator).toHaveText('Welcome to the-internet');
+});
+```
+
+Explanation:
+
+* `page.locator('text=Welcome to the-internet'):`  Creates a locator that finds elements containing the text "Welcome to the-internet".
+
+* `page.locator('.div#content > .heading'):` Selects an element with the class 'div' and id 'content' that contains a child element with the class 'heading'.
+
+* `expect(locator).toBeVisible():` Asserts that the element located by locator is visible on the page.
+
+* `expect(locator).toHaveText('Welcome to the-internet'):` Asserts that the element located by locator has the text content "Welcome to the-internet"
+
+## Actions - Interacting with ELEMENTS
+
+Explanation: Once you have located an element, you can perform actions on it. Common actions include:
+
+`click():`Clicks on an element.
+
+`type('text'):` Types text into an input field or editable element.
+
+`fill('text'):` Similar to type, but often preferred for input fields as it clears the field first.
+
+`hover():` Hovers the mouse over an element.
+
+`selectOption('value') or selectOption({ label: 'Option Text' }):`Selects an option in a dropdown.
+
+`check():` Checks a checkbox or radio button.
+
+`uncheck():` Unchecks a checkbox.
+
+`setInputFiles('filepath'):`  Uploads files to an `<input type="file">` element.
+
+### Code Imprementation
+
+```javascript
+const { test, expect } = require('@playwright/test');
+
+test('Add and Remove Elements', async ({ page }) => {
+  await page.goto('https://the-internet.herokuapp.com/add_remove_elements/');
+
+  // Locate the "Add Element" button by text
+  const addButton = page.locator('button', { hasText: 'Add Element' }); // More robust locator
+  const deleteButtonLocator = page.locator('#elements button', { hasText: 'Delete' }); // Locator for Delete button
+
+  // Click the "Add Element" button
+  await addButton.click();
+
+  // Verify that the "Delete" button is visible
+  await expect(deleteButtonLocator).toBeVisible();
+
+  // Click the "Delete" button
+  await deleteButtonLocator.click();
+
+  // Verify that the "Delete" button is NOT visible (using .not.toBeVisible())
+  await expect(deleteButtonLocator).not.toBeVisible();
+});
+```
+
+Explanation:
+
+`page.locator('button', { hasText: 'Add Element' }):`  Locator for the "Add Element" button using the hasText option for more robust text-based locating.
+
+`page.locator('#elements button', { hasText: 'Delete' }):` Locator for the "Delete" button. We use #elements button to be specific to buttons inside the #elements div (where dynamically added elements appear).
+
+`addButton.click():` Performs a click action on the "Add Element" button.
+
+`deleteButtonLocator.click():` Performs a click action on the "Delete" button.
+
+`expect(deleteButtonLocator).not.toBeVisible():`  Asserts that the "Delete" button is not visible on the page after clicking it.
