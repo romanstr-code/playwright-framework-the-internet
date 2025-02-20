@@ -7,6 +7,16 @@
 2. Browser Context 
 3. and Page. -->
 
+### Explanation
+
+Playwright works by controlling browsers. Understanding these concepts is crucial:
+
+**Browser**: Represents an instance of a browser (like Chromium, Firefox, or WebKit). You can launch different browsers using Playwright.
+
+**Browser Context**: Provides isolated sessions within a browser. Think of it as different browser profiles. Each context has its own cookies, local storage, etc. This is useful for running tests in isolation and preventing state from previous tests from affecting subsequent ones. By default, Playwright creates a new browser context for each test.
+
+**Page**: Represents a single tab or window within a browser context. You interact with web pages through the page object.
+
 ```javascript
 const { test } = require('@playwright/test');
 
@@ -28,17 +38,24 @@ test('Browser, Context, Page Example', async ({ browser }) => {
 });
 ```
 
-## Code Explanation
+### Code Explanation
 
-<!-- 
-* async ({ browser }) => { ... } : We are now using the broser fixture.
-Playwright provides different fixtures to access browser-level, context-level,
-and page-level objects.
-* browser.browserType().name(): Shows the type of browser being used (e.g, "chronium"). 
-By default, Playwright runs tests on Chromium. You can configure it to run on
-Firefox and WebKit as well.
-* browser.NewContext(): Creates a new browser context.
-* context.newPage(): Creates a new page within the created context.
-* context.close(): Close the context. It's generally good practice to close contexts when you are done with them,
-altough Playwright often manages this automatically.
- -->
+* `async ({ browser }) => { ... }` : We are now using the browser fixture. Playwright provides different fixtures to access browser-level, context-level, and page-level objects.
+* `browser.browserType().name()`: Shows the type of browser being used (e.g., "chromium"). By default, Playwright runs tests on Chromium. You can configure it to run on Firefox and WebKit as well.
+* `browser.newContext()`: Creates a new browser context.
+* `context.newPage()`: Creates a new page within the created context.
+* `context.close()`: Closes the context. It's generally good practice to close contexts when you are done with them, although Playwright often manages this automatically.
+
+## Locators - Finding elements on the page
+
+Explanation: Locators are the heart of Playwright. They are used to find specific elements on a web page so you can interact with them. Playwright locators are powerful and resilient. Key locator strategies:
+
+* **By Text**: Locate elements based on their visible text content.
+* **By CSS Selector**: Use CSS selectors (like in CSS styling) to target elements.
+* **By XPath**: Use XPath expressions to navigate the HTML structure.
+* **By Role**: Locate elements based on their semantic HTML role (e.g., "button", "link", "checkbox").
+* **By Label**: Locate form elements associated with a specific label.
+* **By Placeholder**: Locate input fields based on their placeholder text.
+* **By Alt Text**: Locate images based on their alt attribute.
+* **Combining Locators**: Chain locators to be more specific.
+
