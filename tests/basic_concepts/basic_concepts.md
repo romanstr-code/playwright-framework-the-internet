@@ -205,3 +205,68 @@ test('Checkboxes Default State', async ({ page}) => {
 `expect(checkbox1).not.toBeChecked():` Asserts that checkbox 1 is not checked.
 
 `expect(checkbox2).toBeChecked():` Asserts that checkbox 2 is checked.
+
+## Writing more tests for basic elements on "The Internet" - Buttons, Links, Text Input
+
+- Action: Writing tests for more basic elements on "The Internet"
+
+```javascript
+const { test, expect } = require('@playwright/test');
+
+test('Check Basic Button Interaction', async ({ page }) => {
+    await page.goto('https://the-internet.herokuapp.com/entry_ad');
+
+    const modal = page.locator('.modal');
+    const closeButton = modal.locator('.modal-footer p');
+    //Assuming close button is inside footer
+
+    // Verify modal is initially visible
+    await expect(modal).toBeVisible();
+    // Click on close button
+    await closeButton.click();
+
+    // Verify modal is not visible
+    await expect(modal).toBeHidden();
+});
+
+
+test('Check Link navigation', async ({ page }) => {
+    await page.goto('https://the-internet.herokuapp.com/');
+
+    const abTestingLink = page.locator('a', { hasText: 'A/B Testing' });
+    // Click on A/B Testing link
+    await abTestingLink.click();
+
+    // Wait for navigation to complete and assert the URL
+    await page.waitForURL('**/abtest');// wait for URL to contain /abtest
+    await expect(page).toHaveURL('https://the-internet.herokuapp.com/abtest');
+
+    // Assert the heading on the A/B Testing page
+    const heading = page.locator('h3');
+    await expect(heading).toHaveText('A/B Test Variation 1', { timeout: 10000 });
+});
+
+
+test('Check Text Input and Echo', async ({ page }) => {
+    await page.goto('https://the-internet.herokuapp.com/inputs');
+
+    const inputField = page.locator('input[type="number"]'); // Assuming input field is of type number
+    // Type text into input field
+    await inputField.fill('12345');
+
+    // Wait a bit ( optional, but sometimes helpful for UI updates)
+    await page.waitForTimeout(100);
+
+    // Assert the value in the input field
+    await expect(inputField).toHaveValue('12345');
+});
+```
+### Explanation:
+
+- These tests cover basic interactions with buttons, links, and text input fields.
+
+- `page.waitForURL('**/abtest'):`  Waits for the page URL to change and contain `/abtest`. This is important to ensure the navigation is complete before making assertions on the new page.
+
+- `page.waitForTimeout(100):`  A short pause (100 milliseconds). Sometimes helpful to allow UI updates to catch up, especially after typing. Use sparingly and prefer more robust waiting strategies when possible (like `waitForSelector` or `waitForURL)`.
+
+- The negative test for text input demonstrates how to test for invalid input (or how the website handles it).
