@@ -59,3 +59,49 @@
 - 11. (If "The Internet" had radio buttons, we'd test them similarly).
 
 **Expected Result:** Dropdown selections and checkbox interactions should work correctly, and assertions should reflect the selected/checked states.
+
+## LoginForm_PositiveLogin
+
+**Test Case ID:** TC_LoginForm_PositiveLogin
+
+**Description:** Test successful login with valid credentials.
+
+***Steps:***
+
+1. Navigate to "https://the-internet.herokuapp.com/login".
+
+2. Enter username "tomsmith".
+
+3. Enter password "SuperSecretPassword!".
+
+4. Click the "Login" button.
+
+5. Wait for navigation to the secure area page.
+
+6. Verify that the success message "You logged into a secure area!" is displayed.
+
+7. Verify that the "Logout" button is visible.
+
+8. Expected Result: User should be logged in successfully, success message and logout button should be visible.
+
+## LoginForm_NegativeLogin_InvalidPassword
+
+**Test Case ID:** TC_LoginForm_NegativeLogin_InvalidPassword
+
+**Description:** Test unsuccessful login with an invalid password.
+
+***Steps:***
+
+1. Navigate to "https://the-internet.herokuapp.com/login".
+
+2. Enter username "tomsmith".
+
+3. Enter password "wrongpassword".
+
+4. Click the "Login" button.
+
+5. Verify that the failure message "Your username is invalid!" is displayed.
+
+6. Verify that the login form is still present (or you are not redirected to the secure area).
+
+7. Expected Result: Login should fail, error message should be displayed.
