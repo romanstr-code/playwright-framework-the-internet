@@ -18,4 +18,29 @@ test('Checkbox Interaction', async ({ page }) => {
     await page.goto('https://the-internet.herokuapp.com/checkboxes');
 
     const checkbox1 = page.locator('input[type="checkbox"]').nth(0);
+
+    // Check the first checkbox
+    await checkbox1.check();
+    await expect(checkbox1).toBeChecked(); // Assert that the first checkbox is checked
+
+    // Uncheck the first checkbox
+    await checkbox1.uncheck();
+    await expect(checkbox1).not.toBeChecked(); // Assert that the first checkbox is not checked
+
+    // Radio Button example (if "The Internet" had radio buttons - for demonstration)
+    // test('Radio Button Interaction', async ({ page }) => {
+    //   await page.goto('URL_WITH_RADIO_BUTTONS');
+    //
+    //   const radioButton1 = page.locator('input[type="radio"]').nth(0);
+    //   const radioButton2 = page.locator('input[type="radio"]').nth(1);
+    //
+    //   await radioButton1.check();
+    //   await expect(radioButton1).toBeChecked();
+    //   await expect(radioButton2).not.toBeChecked(); // Assuming radio buttons are in the same group
+    //
+    //   await radioButton2.check();
+    //   await expect(radioButton2).toBeChecked();
+    //   await expect(radioButton1).not.toBeChecked();
+    // });
+
 });
