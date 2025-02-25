@@ -105,3 +105,41 @@
 6. Verify that the login form is still present (or you are not redirected to the secure area).
 
 7. Expected Result: Login should fail, error message should be displayed.
+
+## Alerts_JSAlert 
+
+**Test Case ID:** TC_Alerts_JSAlert
+
+**Description:** Test handling of a JavaScript Alert.
+
+***Steps:***
+
+1. Navigate to "https://the-internet.herokuapp.com/javascript_alerts".
+
+2. Click the "Click for JS Alert" button.
+
+3. Verify that an alert dialog appears with the text "I am a JS Alert".
+
+4. Accept the alert.
+
+5. Verify that the result text "You successfully clicked an alert" is displayed.
+
+6. Expected Result: Alert should be handled, and success message should appear after accepting the alert
+
+## Waiting_DynamicLoading
+
+**Test Case ID:** TC_Waiting_DynamicLoading
+
+**Description:** Test dynamic loading of content - wait for an element to appear after a delay.
+
+***Steps:***
+
+1. Navigate to "https://the-internet.herokuapp.com/dynamic_loading/1".
+
+2. Click the "Start" button.
+
+3. Wait for the "Hello World!" text to appear.
+
+4. Verify that the "Hello World!" text is visible.
+
+- Expected Result: Test should wait until "Hello World!" appears and then verify its presence.
