@@ -1,4 +1,4 @@
-// page-objects/HomePage.js
+// pages/HomePage.js
 
 const { expect } = require('@playwright/test'); // Import the expect function from Playwright.
 
@@ -22,13 +22,17 @@ class HomePage {
         // this.keyPressesLink = page.locator('a', { hasText: 'Key Presses' }); // Link to Key Presses page.
     };
 
-    async gotToHomePage() { // This method navigates to the Home page and is called before each test.
+    async gotoHomePage() { // Fixed method name from gotToHomePage to gotoHomePage
         await this.page.goto('https://the-internet.herokuapp.com/'); // Navigates to the Home page.
     };
 
     async clickLoginLink() {
         await this.loginLink.click(); // Clicks the Login link. 
     };
+
+    async clickAbTestingLink(){
+        await this.abTestingLink.click(); // clicks the A/B Testing Link
+    }
 
     async verifyHomePageHeading() { // This method verifies that the Home page is displayed.   
         await expect(this.heading).toBeVisible(); // Verifies that the heading is visible.

@@ -1,6 +1,6 @@
 // page-objects/LoginPage.js
 
-const { expect } = require(@playwright/test);
+const { expect } = require('@playwright/test');
 
 // Define the LoginPage class
 class LoginPage {
@@ -75,4 +75,4 @@ class LoginPage {
 };
 
 // Export the LoginPage class
-module.exports = LoginPage; 
+export default LoginPage; 
